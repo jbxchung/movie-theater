@@ -1,5 +1,7 @@
 package com.jpmc.theater.vo;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jpmc.theater.utils.TimeUtils;
 
 import java.time.LocalDate;
@@ -24,11 +26,21 @@ public class Theater {
     }
 
     public void printSchedule() {
+        this.printSchedule(false);
+    }
+
+    public void printSchedule(Boolean json) {
         System.out.println(LocalDate.now());
         System.out.println("===================================================");
-        schedule.forEach(s ->
-            System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + TimeUtils.humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
-        );
+        if (json) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            System.out.println(gson.toJson(schedule));
+        } else {
+            schedule.forEach(s ->
+                    System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + TimeUtils.humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
+            );
+        }
         System.out.println("===================================================");
     }
 }

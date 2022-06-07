@@ -9,14 +9,11 @@ public class Movie {
     private String description;
     private Duration runningTime;
     private double ticketPrice;
-    private Boolean isSpecial;
 
-    // todo - do we want these discount values to be updatable? if so, move to db or config
-    private static Map<Integer, Double> sequenceDiscountMap = Map.of(
-        1, 3d,
-        2, 2d
-    );
-    private static final Double SPECIAL_DISCOUNT_MULTIPLIER = 0.2;
+    private Boolean isSpecial;
+    public Boolean getSpecial() {
+        return isSpecial;
+    }
 
     public Movie(String title, Duration runningTime, double ticketPrice, Boolean isSpecial) {
         this.title = title;
@@ -35,24 +32,6 @@ public class Movie {
 
     public double getTicketPrice() {
         return ticketPrice;
-    }
-
-    public double calculateTicketPrice(Showing showing) {
-        return ticketPrice - getDiscount(showing.getSequenceOfTheDay());
-    }
-
-    private double getDiscount(int showSequence) {
-        // 20% discount for special movie
-        double specialDiscount = this.isSpecial ? ticketPrice * SPECIAL_DISCOUNT_MULTIPLIER : 0;
-
-        // check for sequence discount
-        Double sequenceDiscount = sequenceDiscountMap.get(showSequence);
-        if (sequenceDiscount == null) {
-            sequenceDiscount = 0d;
-        }
-
-        // biggest discount wins
-        return Math.max(specialDiscount, sequenceDiscount);
     }
 
     @Override

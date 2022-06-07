@@ -1,5 +1,7 @@
 package com.jpmc.theater;
 
+import com.jpmc.theater.utils.TimeUtils;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -45,26 +47,9 @@ public class Theater {
         System.out.println(provider.currentDate());
         System.out.println("===================================================");
         schedule.forEach(s ->
-                System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
+            System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + TimeUtils.humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
         );
         System.out.println("===================================================");
-    }
-
-    public String humanReadableFormat(Duration duration) {
-        long hour = duration.toHours();
-        long remainingMin = duration.toMinutes() - TimeUnit.HOURS.toMinutes(duration.toHours());
-
-        return String.format("(%s hour%s %s minute%s)", hour, handlePlural(hour), remainingMin, handlePlural(remainingMin));
-    }
-
-    // (s) postfix should be added to handle plural correctly
-    private String handlePlural(long value) {
-        if (value == 1) {
-            return "";
-        }
-        else {
-            return "s";
-        }
     }
 
     public static void main(String[] args) {

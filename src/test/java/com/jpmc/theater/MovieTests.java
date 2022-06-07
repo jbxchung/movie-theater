@@ -74,4 +74,23 @@ public class MovieTests {
 
         assertEquals(expectedPrice, result);
     }
+
+    @Test
+    void testNoDiscount() {
+        Double basePrice = 20d;
+
+        // not special
+        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), basePrice, false);
+
+        // set time outside matinee window
+        LocalDateTime showingTime = LocalDate.now().atTime(20, 0);
+
+        // make sure the sequence does not give a discount (1, 2, or 7)
+        Showing showing = new Showing(spiderMan, 5, showingTime);
+        Double result = showing.calculateTicketPrice();
+
+        System.out.println(String.format("Calculated price: %f, Expected Price: %f", result, basePrice));
+
+        assertEquals(basePrice, result);
+    }
 }

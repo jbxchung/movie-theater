@@ -1,6 +1,7 @@
 package com.jpmc.theater.vo;
 
 import java.time.Duration;
+import java.util.Map;
 import java.util.Objects;
 
 public class Movie {
@@ -9,6 +10,13 @@ public class Movie {
     private Duration runningTime;
     private double ticketPrice;
     private Boolean isSpecial;
+
+    // todo - do we want these discount values to be updatable? if so, move to db or config
+    private static Map<Integer, Double> sequenceDiscountMap = Map.of(
+        1, 3d,
+        2, 2d
+    );
+    private static final Double SPECIAL_DISCOUNT_MULTIPLIER = 0.2;
 
     public Movie(String title, Duration runningTime, double ticketPrice, Boolean isSpecial) {
         this.title = title;
@@ -34,21 +42,14 @@ public class Movie {
     }
 
     private double getDiscount(int showSequence) {
-        double specialDiscount = 0;
-        if (isSpecial) {
-            specialDiscount = ticketPrice * 0.2;  // 20% discount for special movie
-        }
+        // 20% discount for special movie
+        double specialDiscount = this.isSpecial ? ticketPrice * SPECIAL_DISCOUNT_MULTIPLIER : 0;
 
-        double sequenceDiscount = 0;
-        if (showSequence == 1) {
-            sequenceDiscount = 3; // $3 discount for 1st show
-        } else if (showSequence == 2) {
-
-            sequenceDiscount = 2; // $2 discount for 2nd show
+        // check for sequence discount
+        Double sequenceDiscount = sequenceDiscountMap.get(showSequence);
+        if (sequenceDiscount == null) {
+            sequenceDiscount = 0d;
         }
-//        else {
-//            throw new IllegalArgumentException("failed exception");
-//        }
 
         // biggest discount wins
         return Math.max(specialDiscount, sequenceDiscount);

@@ -14,7 +14,7 @@ public class TheaterTests {
         Theater theater = new Theater(ExampleData.get());
         Customer john = new Customer("John Doe", "id-12345");
         Reservation reservation = theater.reserve(john, 2, 4);
-//        System.out.println("You have to pay " + reservation.getTotalFee());
+        System.out.println("You have to pay " + reservation.totalFee());
         assertEquals(reservation.totalFee(), 50);
     }
 

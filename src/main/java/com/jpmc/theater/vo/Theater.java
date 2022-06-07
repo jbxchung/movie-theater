@@ -1,10 +1,6 @@
-package com.jpmc.theater;
+package com.jpmc.theater.vo;
 
-import com.jpmc.theater.utils.ExampleData;
 import com.jpmc.theater.utils.TimeUtils;
-import com.jpmc.theater.vo.Customer;
-import com.jpmc.theater.vo.Reservation;
-import com.jpmc.theater.vo.Showing;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,10 +30,5 @@ public class Theater {
             System.out.println(s.getSequenceOfTheDay() + ": " + s.getStartTime() + " " + s.getMovie().getTitle() + " " + TimeUtils.humanReadableFormat(s.getMovie().getRunningTime()) + " $" + s.getMovieFee())
         );
         System.out.println("===================================================");
-    }
-
-    public static void main(String[] args) {
-        Theater theater = new Theater(ExampleData.get());
-        theater.printSchedule();
     }
 }

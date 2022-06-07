@@ -2,11 +2,11 @@ package com.jpmc.theater;
 
 import com.jpmc.theater.utils.ExampleData;
 import com.jpmc.theater.utils.TimeUtils;
+import com.jpmc.theater.vo.Customer;
+import com.jpmc.theater.vo.Reservation;
+import com.jpmc.theater.vo.Showing;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 public class Theater {

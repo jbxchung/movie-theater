@@ -1,4 +1,6 @@
-package com.jpmc.theater;
+package com.jpmc.theater.vo;
+
+import com.jpmc.theater.vo.Movie;
 
 import java.time.LocalDateTime;
 

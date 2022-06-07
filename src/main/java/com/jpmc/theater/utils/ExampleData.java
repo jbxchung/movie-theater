@@ -1,18 +1,19 @@
 package com.jpmc.theater.utils;
 
-import com.jpmc.theater.Movie;
-import com.jpmc.theater.Showing;
+import com.jpmc.theater.vo.Movie;
+import com.jpmc.theater.vo.Showing;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
-// todo - read this from db?
+// this is an auxiliary class with sample data to aid in testing
+// todo - read actual data from db or other config
 public class ExampleData {
     public static List<Showing> get() {
-        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, 1);
-        Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), 11, 0);
-        Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), 9, 0);
+        Movie spiderMan = new Movie("Spider-Man: No Way Home", Duration.ofMinutes(90), 12.5, true);
+        Movie turningRed = new Movie("Turning Red", Duration.ofMinutes(85), 11, false);
+        Movie theBatMan = new Movie("The Batman", Duration.ofMinutes(95), 9, false);
 
         return List.of(
             new Showing(turningRed, 1, LocalDate.now().atTime(9, 0)),
@@ -26,5 +27,4 @@ public class ExampleData {
             new Showing(theBatMan, 9, LocalDate.now().atTime(23, 0))
         );
     }
-
 }

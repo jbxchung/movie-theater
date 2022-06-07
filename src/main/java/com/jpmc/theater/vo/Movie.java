@@ -1,22 +1,20 @@
-package com.jpmc.theater;
+package com.jpmc.theater.vo;
 
 import java.time.Duration;
 import java.util.Objects;
 
 public class Movie {
-    private static int MOVIE_CODE_SPECIAL = 1;
-
     private String title;
     private String description;
     private Duration runningTime;
     private double ticketPrice;
-    private int specialCode;
+    private Boolean isSpecial;
 
-    public Movie(String title, Duration runningTime, double ticketPrice, int specialCode) {
+    public Movie(String title, Duration runningTime, double ticketPrice, Boolean isSpecial) {
         this.title = title;
         this.runningTime = runningTime;
         this.ticketPrice = ticketPrice;
-        this.specialCode = specialCode;
+        this.isSpecial = isSpecial;
     }
 
     public String getTitle() {
@@ -37,7 +35,7 @@ public class Movie {
 
     private double getDiscount(int showSequence) {
         double specialDiscount = 0;
-        if (MOVIE_CODE_SPECIAL == specialCode) {
+        if (isSpecial) {
             specialDiscount = ticketPrice * 0.2;  // 20% discount for special movie
         }
 
@@ -53,7 +51,7 @@ public class Movie {
 //        }
 
         // biggest discount wins
-        return specialDiscount > sequenceDiscount ? specialDiscount : sequenceDiscount;
+        return Math.max(specialDiscount, sequenceDiscount);
     }
 
     @Override
@@ -65,11 +63,11 @@ public class Movie {
                 && Objects.equals(title, movie.title)
                 && Objects.equals(description, movie.description)
                 && Objects.equals(runningTime, movie.runningTime)
-                && Objects.equals(specialCode, movie.specialCode);
+                && Objects.equals(isSpecial, movie.isSpecial);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, runningTime, ticketPrice, specialCode);
+        return Objects.hash(title, description, runningTime, ticketPrice, isSpecial);
     }
 }
